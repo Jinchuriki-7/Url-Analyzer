@@ -2,6 +2,8 @@
 
 > A high-performance, modern SaaS dashboard engineered for **Biswas IT Automation** to evaluate website SEO health, semantic heading structure, link topology, media optimization, and Core Web Vitals telemetry.
 
+🌐 **Live Demo Hosted on Firebase:** [https://biswas-url-analyzer-77.web.app](https://biswas-url-analyzer-77.web.app)
+
 ![Biswas IT Automation URL Analyzer](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80)
 
 ---
