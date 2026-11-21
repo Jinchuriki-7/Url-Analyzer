@@ -33,17 +33,15 @@ import {
   ShieldCheck
 } from 'lucide-react';
 
-const DEFAULT_URL = 'https://prostutibd.com/';
-
 export default function App() {
-  const [url, setUrl] = useState(DEFAULT_URL);
+  const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentStageIndex, setCurrentStageIndex] = useState(0);
   const [validationError, setValidationError] = useState('');
   
-  // Start with default prostutibd.com analysis loaded
-  const [analysisData, setAnalysisData] = useState(PROSTUTIBD_ANALYSIS_DATA);
+  // Start with clean initial state
+  const [analysisData, setAnalysisData] = useState(null);
   const [activeTab, setActiveTab] = useState('all'); // 'all' | 'seo' | 'headings' | 'links' | 'media' | 'performance'
   const [isExportOpen, setIsExportOpen] = useState(false);
 
@@ -113,9 +111,9 @@ export default function App() {
   };
 
   const handleReset = () => {
-    setUrl(DEFAULT_URL);
+    setUrl('');
     setValidationError('');
-    setAnalysisData(PROSTUTIBD_ANALYSIS_DATA);
+    setAnalysisData(null);
     setActiveTab('all');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -252,28 +250,39 @@ export default function App() {
           </div>
         )}
 
-        {/* Empty State when reset or cleared */}
+        {/* Empty State when no analysis has been run */}
         {!isLoading && !analysisData && (
-          <div className="max-w-md mx-auto my-12 text-center p-8 bg-white rounded-3xl border border-slate-200 shadow-sm space-y-4 animate-fade-in">
+          <div className="max-w-xl mx-auto my-10 text-center p-8 bg-white rounded-3xl border border-slate-200/90 shadow-xs space-y-4 animate-fade-in">
             <div className="w-16 h-16 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto border border-brand-200">
               <Globe2 className="w-8 h-8" />
             </div>
             <h3 className="text-lg font-bold text-slate-900">
-              No Analysis Running
+              Ready to Analyze Website
             </h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Enter any target web URL above, or instantly run the pre-configured benchmark for <strong>https://prostutibd.com/</strong>.
+            <p className="text-xs text-slate-500 leading-relaxed max-w-md mx-auto">
+              Enter any website URL in the search field above and click <strong>Analyze Website</strong> to generate a complete SEO audit, heading hierarchy, link structure, and performance metrics.
             </p>
-            <button
-              onClick={() => {
-                setUrl(DEFAULT_URL);
-                handleStartAnalysis(DEFAULT_URL);
-              }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-md shadow-brand-600/25 transition-all cursor-pointer"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Load prostutibd.com Benchmark</span>
-            </button>
+            <div className="pt-2 flex flex-wrap justify-center items-center gap-2">
+              <button
+                onClick={() => {
+                  setUrl('https://prostutibd.com/');
+                  handleStartAnalysis('https://prostutibd.com/');
+                }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-brand-50 text-slate-700 hover:text-brand-700 border border-slate-200 hover:border-brand-300 text-xs font-semibold transition-all cursor-pointer"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-brand-600" />
+                <span>Test with prostutibd.com</span>
+              </button>
+              <button
+                onClick={() => {
+                  setUrl('https://github.com');
+                  handleStartAnalysis('https://github.com');
+                }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-brand-50 text-slate-700 hover:text-brand-700 border border-slate-200 hover:border-brand-300 text-xs font-semibold transition-all cursor-pointer"
+              >
+                <span>Test with github.com</span>
+              </button>
+            </div>
           </div>
         )}
 
