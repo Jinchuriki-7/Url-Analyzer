@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Logo from './Logo';
 import { 
   Globe2, 
   ShieldCheck, 
@@ -20,13 +21,7 @@ export default function Header({ onReset, onExport, currentUrl }) {
         <div className="flex items-center justify-between h-18">
           {/* Logo and Brand */}
           <div className="flex items-center gap-3.5">
-            <div className="relative flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-700 via-brand-600 to-sky-500 text-white shadow-md shadow-brand-500/20 ring-1 ring-white/30">
-              <Globe2 className="w-6 h-6 animate-pulse-subtle" />
-              <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-white"></span>
-              </span>
-            </div>
+            <Logo size="md" />
 
             <div>
               <div className="flex items-center gap-2">
@@ -81,9 +76,7 @@ export default function Header({ onReset, onExport, currentUrl }) {
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 animate-slide-up">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center font-bold">
-                  U
-                </div>
+                <Logo size="sm" />
                 <div>
                   <h3 className="text-base font-bold text-slate-900">About URL Analyzer</h3>
                   <p className="text-xs text-slate-500">Website & SEO Diagnostic Dashboard</p>

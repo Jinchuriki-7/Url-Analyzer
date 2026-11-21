@@ -1,4 +1,5 @@
 import React from 'react';
+import Logo from './Logo';
 import { Globe, Heart, Shield, Terminal, ArrowUp } from 'lucide-react';
 
 export default function Footer() {
@@ -11,14 +12,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-100">
           {/* Brand info */}
-          <div className="space-y-1 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-2">
-              <div className="w-7 h-7 rounded-lg bg-brand-600 text-white flex items-center justify-center font-bold text-xs">
-                U
-              </div>
-              <span className="text-base font-bold text-slate-900">
-                URL <span className="text-brand-600 font-extrabold">Analyzer</span>
-              </span>
+          <div className="space-y-2 text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start">
+              <Logo size="sm" withText={true} />
             </div>
             <p className="text-xs text-slate-500 max-w-sm">
               Modern frontend dashboard engineered for high-precision website diagnostics, SEO scoring, and Core Web Vitals telemetry.
