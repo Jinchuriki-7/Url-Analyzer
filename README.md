@@ -2,16 +2,10 @@
 
 > A high-performance, modern SaaS dashboard engineered for **Biswas IT Automation** to evaluate website SEO health, semantic heading structure, link topology, media optimization, and Core Web Vitals telemetry.
 
-🌐 **Live Demo Hosted on Firebase:** [https://biswas-url-analyzer-77.web.app](https://biswas-url-analyzer-77.web.app)
+## 🚀 Live Demo
+🔗 **Visit Live Website:** **[https://biswas-url-analyzer-77.web.app](https://biswas-url-analyzer-77.web.app)**
 
 ![Biswas IT Automation URL Analyzer](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80)
-
----
-
-## 🎯 Target Website Benchmark
-- **Target URL**: [https://prostutibd.com/](https://prostutibd.com/)
-- **Subject**: Prostuti BD (প্রস্তুতি বিডি) — Leading Bangladeshi online exam preparation and job assessment platform (BCS, Bank Jobs, Primary Teacher recruitment, University admission).
-- **Default Status**: Pre-configured as the canonical benchmark demo.
 
 ---
 
@@ -164,11 +158,3 @@ Task 1/
 - **Responsive Layout**: Designed mobile-first, tested seamlessly across phone, tablet, and widescreen monitors.
 - **Accessibility**: Clear contrast ratios, semantic HTML landmarks, and legible typography (`Plus Jakarta Sans`).
 - **Interactive Feedback**: Instant hover states, copy button feedbacks, smooth tab transitions, and loading states.
-
----
-
-## 🏢 Evaluation Information
-- **Client**: Biswas IT Automation
-- **Project**: Website URL Analyzer Frontend Interface
-- **Target URL**: [https://prostutibd.com/](https://prostutibd.com/)
-- **Deliverable**: Complete React.js Source Code, Responsive UI, and Setup Documentation.
