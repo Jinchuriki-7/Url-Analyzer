@@ -1,6 +1,6 @@
-# Biswas IT Automation — Professional Website URL Analyzer & SEO Auditor
+# URL Analyzer
 
-> A high-performance, modern SaaS dashboard engineered for **Biswas IT Automation** to evaluate website SEO health, semantic heading structure, link topology, media optimization, and Core Web Vitals telemetry.
+> A high-performance, modern web application to evaluate website SEO health, semantic heading structure, link topology, media optimization, and Core Web Vitals telemetry.
 
 ## 🚀 Live Demo
 🔗 **Visit Live Website:** **[https://biswas-url-analyzer-77.web.app](https://biswas-url-analyzer-77.web.app)**
