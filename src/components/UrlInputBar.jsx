@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 
 const PRESETS = [
-  { label: 'prostutibd.com (Default Target)', url: 'https://prostutibd.com/' },
+  { label: 'prostutibd.com', url: 'https://prostutibd.com/' },
   { label: 'github.com', url: 'https://github.com' },
   { label: 'react.dev', url: 'https://react.dev' },
 ];
@@ -53,11 +53,11 @@ export default function UrlInputBar({
           Enter Website URL to Analyze
         </label>
         <p className="text-xs text-slate-500 mt-0.5">
-          Provide a complete web address (HTTP/HTTPS) or domain name. Default benchmark is pre-loaded below.
+          Provide a complete web address (HTTP/HTTPS) or domain name.
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-3">
+      <form onSubmit={handleSubmit} autoComplete="off" className="space-y-3">
         <div className="relative flex flex-col sm:flex-row items-stretch gap-2.5">
           {/* Input field wrapper */}
           <div className="relative flex-1 group">
@@ -67,14 +67,21 @@ export default function UrlInputBar({
 
             <input
               id="url-input"
+              name="url_analyzer_query"
               type="text"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck={false}
+              data-lpignore="true"
+              data-form-type="other"
               value={url}
               onChange={(e) => {
                 setUrl(e.target.value);
                 if (validationError) setValidationError('');
               }}
               disabled={isLoading}
-              placeholder="e.g. https://prostutibd.com/"
+              placeholder="e.g. https://example.com"
               className={`w-full pl-11 pr-10 py-3.5 text-sm sm:text-base font-medium text-slate-900 placeholder:text-slate-400 bg-slate-50/70 hover:bg-slate-50 focus:bg-white rounded-xl border transition-all duration-200 outline-none ${
                 validationError 
                   ? 'border-rose-400 focus:border-rose-500 focus:ring-4 focus:ring-rose-500/15' 
