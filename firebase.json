@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "url-analyzer-live",
     "public": "dist",
     "ignore": [
       "firebase.json",

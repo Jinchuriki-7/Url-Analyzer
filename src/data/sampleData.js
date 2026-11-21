@@ -1,5 +1,5 @@
 /**
- * Biswas IT Automation - URL Analyzer Data Engine
+ * URL Analyzer Data Engine
  * Realistic sample analysis data for prostutibd.com and smart fallback generator.
  * Clearly marked as Demo / Benchmark data per requirements.
  */

@@ -32,7 +32,7 @@ export default function ExportModal({ isOpen, onClose, data }) {
   };
 
   const handleCopyMarkdown = () => {
-    const summary = `# Website URL Analysis Report - Biswas IT Automation
+    const summary = `# Website URL Analysis Report - URL Analyzer
 - **Target URL**: ${data.url}
 - **Website Title**: ${data.metadata.title}
 - **SEO Score**: ${data.seoScore.overall}/100 (Grade ${data.seoScore.grade})

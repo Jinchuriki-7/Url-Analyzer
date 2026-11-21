@@ -3,9 +3,9 @@
 > A high-performance, modern web application to evaluate website SEO health, semantic heading structure, link topology, media optimization, and Core Web Vitals telemetry.
 
 ## 🚀 Live Demo
-🔗 **Visit Live Website:** **[https://biswas-url-analyzer-77.web.app](https://biswas-url-analyzer-77.web.app)**
+🔗 **Visit Live Website:** **[https://url-analyzer-live.web.app](https://url-analyzer-live.web.app)**
 
-![Biswas IT Automation URL Analyzer](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80)
+![URL Analyzer](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80)
 
 ---
 
@@ -99,7 +99,7 @@ Task 1/
     ├── data/
     │   └── sampleData.js        # Canonical prostutibd.com dataset & URL generator
     └── components/
-        ├── Header.jsx           # Biswas IT Automation branded navbar & actions
+        ├── Header.jsx           # Clean header navigation & action modals
         ├── DemoDisclaimerBanner.jsx # Simulation / Benchmark disclaimer alert
         ├── UrlInputBar.jsx      # URL input field, presets, and validation logic
         ├── ProgressBar.jsx      # 5-stage animated diagnostics progress meter
@@ -154,7 +154,7 @@ Task 1/
 ---
 
 ## 🎨 UI/UX Design Standards
-- **Enterprise Palette**: Biswas IT corporate deep royal blue (`#026bc9`, `#0356a3`), crisp slate neutrals, emerald success accents, and warm amber optimization alerts.
+- **Design Palette**: Corporate deep royal blue (`#026bc9`, `#0356a3`), crisp slate neutrals, emerald success accents, and warm amber optimization alerts.
 - **Responsive Layout**: Designed mobile-first, tested seamlessly across phone, tablet, and widescreen monitors.
 - **Accessibility**: Clear contrast ratios, semantic HTML landmarks, and legible typography (`Plus Jakarta Sans`).
 - **Interactive Feedback**: Instant hover states, copy button feedbacks, smooth tab transitions, and loading states.

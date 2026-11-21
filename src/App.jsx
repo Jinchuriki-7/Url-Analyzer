@@ -142,7 +142,7 @@ export default function App() {
         <div className="text-center max-w-3xl mx-auto space-y-3 pt-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200 shadow-2xs">
             <Sparkles className="w-3.5 h-3.5 text-brand-600" />
-            <span>Biswas IT Automation • Technical Frontend Evaluation</span>
+            <span>URL Analyzer • Live SEO Intelligence Platform</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">

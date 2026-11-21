@@ -14,10 +14,10 @@ export default function Footer() {
           <div className="space-y-1 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-2">
               <div className="w-7 h-7 rounded-lg bg-brand-600 text-white flex items-center justify-center font-bold text-xs">
-                B
+                U
               </div>
               <span className="text-base font-bold text-slate-900">
-                Biswas <span className="text-brand-600">IT</span> Automation
+                URL <span className="text-brand-600 font-extrabold">Analyzer</span>
               </span>
             </div>
             <p className="text-xs text-slate-500 max-w-sm">
@@ -52,9 +52,9 @@ export default function Footer() {
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
-          <p>© {new Date().getFullYear()} Biswas IT Automation. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} URL Analyzer. All rights reserved.</p>
           <p className="flex items-center gap-1">
-            <span>Built with precision for Internship Frontend Evaluation</span>
+            <span>High-performance web intelligence suite</span>
           </p>
         </div>
       </div>

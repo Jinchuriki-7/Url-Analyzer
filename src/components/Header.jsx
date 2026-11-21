@@ -31,14 +31,14 @@ export default function Header({ onReset, onExport, currentUrl }) {
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-xl font-bold tracking-tight text-slate-900">
-                  Biswas <span className="text-brand-600 font-extrabold">IT</span> Automation
+                  URL <span className="text-brand-600 font-extrabold">Analyzer</span>
                 </span>
                 <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-brand-50 text-brand-700 border border-brand-200">
-                  Analyzer v2.4
+                  v2.4 Live
                 </span>
               </div>
               <p className="text-xs text-slate-500 font-medium hidden sm:block">
-                Enterprise Website URL Analyzer & SEO Intelligence Suite
+                Professional Website SEO & Performance Intelligence Suite
               </p>
             </div>
           </div>
@@ -82,11 +82,11 @@ export default function Header({ onReset, onExport, currentUrl }) {
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center font-bold">
-                  B
+                  U
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-slate-900">About Website URL Analyzer</h3>
-                  <p className="text-xs text-slate-500">Biswas IT Automation Frontend Evaluation</p>
+                  <h3 className="text-base font-bold text-slate-900">About URL Analyzer</h3>
+                  <p className="text-xs text-slate-500">Website & SEO Diagnostic Dashboard</p>
                 </div>
               </div>
               <button
@@ -99,7 +99,7 @@ export default function Header({ onReset, onExport, currentUrl }) {
 
             <div className="py-4 space-y-3.5 text-xs text-slate-600 leading-relaxed">
               <p>
-                This interface was architected for <strong className="text-slate-900">Biswas IT Automation</strong> to provide an executive-level diagnostic dashboard for evaluating website SEO, metadata, DOM heading architecture, media optimization, and Core Web Vitals performance.
+                <strong className="text-slate-900">URL Analyzer</strong> provides an executive-level diagnostic dashboard for evaluating website SEO, metadata, DOM heading architecture, media optimization, and Core Web Vitals performance.
               </p>
               
               <div className="p-3 bg-brand-50 rounded-xl border border-brand-100 space-y-1.5">

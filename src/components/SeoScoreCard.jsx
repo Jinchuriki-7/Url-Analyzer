@@ -96,7 +96,7 @@ export default function SeoScoreCard({ seoScore }) {
               <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                 Grade {grade} • {status} Standing
               </span>
-              <span className="text-xs text-slate-400">Biswas IT Automation Index</span>
+              <span className="text-xs text-slate-400">URL Analyzer Index</span>
             </div>
             <p className="text-sm text-slate-200 leading-relaxed font-normal">
               {summary}
