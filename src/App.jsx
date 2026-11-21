@@ -137,12 +137,7 @@ export default function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         
         {/* Hero Section */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 pt-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-brand-600" />
-            <span>URL Analyzer • Live SEO Intelligence Platform</span>
-          </div>
-
+        <div className="text-center max-w-3xl mx-auto space-y-3 pt-4">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
             Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-700 via-brand-600 to-sky-600">Website URL Analyzer</span>
           </h1>
