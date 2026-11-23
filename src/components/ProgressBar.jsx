@@ -17,7 +17,7 @@ export default function ProgressBar({ progress, currentStageIndex }) {
     <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-200 p-6 sm:p-8 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100">
         <div className="flex items-center gap-3.5">
-          <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 border border-brand-200">
+          <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 border border-brand-200 shadow-sm shadow-brand-600/10">
             <Loader2 className="w-6 h-6 animate-spin text-brand-600" />
           </div>
           <div>
@@ -25,7 +25,10 @@ export default function ProgressBar({ progress, currentStageIndex }) {
               <span className="text-xs font-extrabold uppercase tracking-wider text-brand-600 bg-brand-50 px-2 py-0.5 rounded-md border border-brand-200">
                 Stage {activeStage.step} of 5
               </span>
-              <span className="text-xs text-slate-400 font-medium">Running Diagnostics</span>
+              <span className="text-xs text-brand-700 font-semibold flex items-center gap-1.5">
+                <span className="inline-block w-2 h-2 rounded-full bg-brand-600 animate-ping"></span>
+                Analyzing Website...
+              </span>
             </div>
             <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">
               {activeStage.title}

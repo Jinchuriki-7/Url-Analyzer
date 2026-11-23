@@ -44,8 +44,8 @@ export default function ErrorStateCard({
           </div>
 
           <div className="space-y-1.5 flex-1">
-            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-              Unable to Analyze Website URL
+            <h3 className="text-xl sm:text-2xl font-extrabold text-rose-700 tracking-tight">
+              Invalid URL. Please enter a valid website URL.
             </h3>
             <p className="text-sm text-slate-600 leading-relaxed">
               {errorMessage}

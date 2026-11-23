@@ -53,20 +53,20 @@ export default function App() {
   // Validate URL string
   const validateUrl = (input) => {
     if (!input || !input.trim()) {
-      return 'Please enter a valid website URL before beginning analysis (ইনপুট ফিল্ডটি খালি রাখা যাবে না).';
+      return 'Invalid URL. Please enter a valid website URL.';
     }
 
     const trimmed = input.trim();
     
     // Check for explicit test error triggers
     if (trimmed.toLowerCase().includes('invalid') || trimmed.toLowerCase().includes('broken') || trimmed.toLowerCase().includes('error-test')) {
-      return `DNS Resolution Failed: Host '${trimmed}' could not be reached. The remote host does not exist or timed out (ভুল বা অকার্যকর ডোমেইন নাম).`;
+      return "Invalid URL. Please enter a valid website URL. Host could not be reached (DNS Resolution Failed).";
     }
 
     // Check if contains basic domain characters
     const domainRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/i;
     if (!domainRegex.test(trimmed)) {
-      return `Malformed URL Syntax: '${trimmed}' is missing a valid domain format or extension (e.g. .com, .org, .bd).`;
+      return "Invalid URL. Please enter a valid website URL (Missing valid domain or extension like .com, .org, .bd).";
     }
 
     return '';
@@ -156,11 +156,11 @@ export default function App() {
     } else if (stateName === 'error') {
       const errUrl = 'https://invalid-domain-test';
       setUrl(errUrl);
-      const errMsg = `DNS Resolution Failed: Host '${errUrl}' could not be reached. Remote server does not exist (ভুল বা অকার্যকর ডোমেইন).`;
+      const errMsg = "Invalid URL. Please enter a valid website URL.";
       setValidationError(errMsg);
       setAnalysisError({
         url: errUrl,
-        message: errMsg
+        message: "Invalid URL. Please enter a valid website URL. Host could not be reached (DNS Resolution Failed)."
       });
       setAnalysisData(null);
       setIsLoading(false);
@@ -245,6 +245,30 @@ export default function App() {
         {/* State 3: Analysis Results Section (Success State / সফল অবস্থা) */}
         {!isLoading && !analysisError && analysisData && (
           <div ref={resultsRef} className="space-y-7 animate-fade-in">
+            {/* Analysis Successful Message Banner */}
+            <div className="bg-emerald-50 border border-emerald-200/90 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm shadow-emerald-500/5 animate-fade-in">
+              <div className="flex items-center gap-3.5">
+                <div className="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-600/30">
+                  <CheckCircle2 className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-extrabold text-emerald-950 flex items-center gap-2">
+                    <span>Analysis Successful!</span>
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200">
+                      HTTP 200 OK
+                    </span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-emerald-700 mt-0.5">
+                    Website Analysis Result for <span className="font-semibold underline">{analysisData.url}</span> is ready. SEO Score and diagnostics are displayed below.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-emerald-200 text-xs font-bold text-emerald-800 shadow-2xs self-start sm:self-auto">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Verified Diagnostic Ready</span>
+              </div>
+            </div>
+
             {/* Demo & Benchmark Disclaimer */}
             <DemoDisclaimerBanner domain={analysisData.domain} />
 
