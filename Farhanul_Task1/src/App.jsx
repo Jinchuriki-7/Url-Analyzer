@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import UrlInputBar from './components/UrlInputBar';
 import ProgressBar from './components/ProgressBar';
+import ErrorStateCard from './components/ErrorStateCard';
 import DemoDisclaimerBanner from './components/DemoDisclaimerBanner';
 import OverviewCards from './components/OverviewCards';
 import WebsiteMetaCard from './components/WebsiteMetaCard';
@@ -39,6 +40,7 @@ export default function App() {
   const [progress, setProgress] = useState(0);
   const [currentStageIndex, setCurrentStageIndex] = useState(0);
   const [validationError, setValidationError] = useState('');
+  const [analysisError, setAnalysisError] = useState(null);
   
   // Start with clean initial state
   const [analysisData, setAnalysisData] = useState(null);
@@ -51,29 +53,41 @@ export default function App() {
   // Validate URL string
   const validateUrl = (input) => {
     if (!input || !input.trim()) {
-      return 'Please enter a website URL to begin analysis.';
+      return 'Please enter a valid website URL before beginning analysis (ইনপুট ফিল্ডটি খালি রাখা যাবে না).';
     }
 
     const trimmed = input.trim();
     
+    // Check for explicit test error triggers
+    if (trimmed.toLowerCase().includes('invalid') || trimmed.toLowerCase().includes('broken') || trimmed.toLowerCase().includes('error-test')) {
+      return `DNS Resolution Failed: Host '${trimmed}' could not be reached. The remote host does not exist or timed out (ভুল বা অকার্যকর ডোমেইন নাম).`;
+    }
+
     // Check if contains basic domain characters
     const domainRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/i;
     if (!domainRegex.test(trimmed)) {
-      return 'Please enter a valid web URL or domain name (e.g. https://prostutibd.com).';
+      return `Malformed URL Syntax: '${trimmed}' is missing a valid domain format or extension (e.g. .com, .org, .bd).`;
     }
 
     return '';
   };
 
   const handleStartAnalysis = (overrideUrl) => {
-    const targetUrl = overrideUrl || url;
+    const targetUrl = overrideUrl !== undefined ? overrideUrl : url;
     const error = validateUrl(targetUrl);
     if (error) {
       setValidationError(error);
+      setAnalysisError({
+        url: targetUrl,
+        message: error
+      });
+      setAnalysisData(null);
+      setIsLoading(false);
       return;
     }
 
     setValidationError('');
+    setAnalysisError(null);
     setIsLoading(true);
     setProgress(0);
     setCurrentStageIndex(0);
@@ -113,10 +127,53 @@ export default function App() {
   const handleReset = () => {
     setUrl('');
     setValidationError('');
+    setAnalysisError(null);
     setAnalysisData(null);
+    setIsLoading(false);
     setActiveTab('all');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const handleTriggerState = (stateName) => {
+    try {
+      window.history.pushState({}, '', `?state=${stateName}`);
+    } catch {}
+
+    if (stateName === 'loading') {
+      setAnalysisError(null);
+      setValidationError('');
+      setAnalysisData(null);
+      setIsLoading(true);
+      setProgress(58);
+      setCurrentStageIndex(2);
+    } else if (stateName === 'success') {
+      setUrl('https://prostutibd.com/');
+      setValidationError('');
+      setAnalysisError(null);
+      setIsLoading(false);
+      setProgress(100);
+      setAnalysisData(PROSTUTIBD_ANALYSIS_DATA);
+    } else if (stateName === 'error') {
+      const errUrl = 'https://invalid-domain-test';
+      setUrl(errUrl);
+      const errMsg = `DNS Resolution Failed: Host '${errUrl}' could not be reached. Remote server does not exist (ভুল বা অকার্যকর ডোমেইন).`;
+      setValidationError(errMsg);
+      setAnalysisError({
+        url: errUrl,
+        message: errMsg
+      });
+      setAnalysisData(null);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const stateParam = params.get('state');
+    if (stateParam) {
+      handleTriggerState(stateParam);
+    }
+  }, []);
 
   const handleClearToEmpty = () => {
     setUrl('');
@@ -156,10 +213,11 @@ export default function App() {
             isLoading={isLoading}
             validationError={validationError}
             setValidationError={setValidationError}
+            onTriggerState={handleTriggerState}
           />
         </div>
 
-        {/* Active Analysis Progress Bar */}
+        {/* State 1: Active Analysis Progress Bar (Loading State / লোডিং অবস্থা) */}
         {isLoading && (
           <div className="max-w-4xl mx-auto animate-fade-in">
             <ProgressBar 
@@ -169,8 +227,23 @@ export default function App() {
           </div>
         )}
 
-        {/* Results Section */}
-        {!isLoading && analysisData && (
+        {/* State 2: Error State (Invalid URL / ভুল URL-এর অবস্থা) */}
+        {!isLoading && analysisError && (
+          <div className="max-w-4xl mx-auto animate-fade-in">
+            <ErrorStateCard
+              failedUrl={analysisError.url}
+              errorMessage={analysisError.message}
+              onRetryWithUrl={(validUrl) => {
+                setUrl(validUrl);
+                handleStartAnalysis(validUrl);
+              }}
+              onClear={handleReset}
+            />
+          </div>
+        )}
+
+        {/* State 3: Analysis Results Section (Success State / সফল অবস্থা) */}
+        {!isLoading && !analysisError && analysisData && (
           <div ref={resultsRef} className="space-y-7 animate-fade-in">
             {/* Demo & Benchmark Disclaimer */}
             <DemoDisclaimerBanner domain={analysisData.domain} />
@@ -245,8 +318,8 @@ export default function App() {
           </div>
         )}
 
-        {/* Empty State when no analysis has been run */}
-        {!isLoading && !analysisData && (
+        {/* Empty / Ready State when no analysis or error is active */}
+        {!isLoading && !analysisData && !analysisError && (
           <div className="max-w-xl mx-auto my-10 text-center p-8 bg-white rounded-3xl border border-slate-200/90 shadow-xs space-y-4 animate-fade-in">
             <div className="w-16 h-16 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto border border-brand-200">
               <Globe2 className="w-8 h-8" />

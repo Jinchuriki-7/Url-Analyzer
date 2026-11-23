@@ -2,10 +2,24 @@
 
 > A high-performance, modern web application to evaluate website SEO health, semantic heading structure, link topology, media optimization, and Core Web Vitals telemetry.
 
-## 🚀 Live Demo
-🔗 **Visit Live Website:** **[https://url-analyzer-live.web.app](https://url-analyzer-live.web.app)**
+## 🚀 Live Demo & State Previews
+🔗 **Live Website:** **[https://url-analyzer-live.web.app](https://url-analyzer-live.web.app)**
+💻 **GitHub Repository:** **[https://github.com/Jinchuriki-7/Url-Analyzer](https://github.com/Jinchuriki-7/Url-Analyzer)**
 
-![URL Analyzer](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80)
+### 📱 3 Distinct UI States (Direct Testing Links)
+1. **⏳ Loading State (লোডিং অবস্থা):** [https://url-analyzer-live.web.app/?state=loading](https://url-analyzer-live.web.app/?state=loading)
+2. **✅ Success State (সফল অবস্থা):** [https://url-analyzer-live.web.app/?state=success](https://url-analyzer-live.web.app/?state=success)
+3. **❌ Error State (ভুল URL-এর অবস্থা):** [https://url-analyzer-live.web.app/?state=error](https://url-analyzer-live.web.app/?state=error)
+
+---
+
+## 📸 State Screenshots (জমা দেওয়ার স্ক্রিনশট)
+
+| State / অবস্থা | Description / বিবরণ | Screenshot Path |
+| :--- | :--- | :--- |
+| **1. Loading State (লোডিং অবস্থা)** | 5-ধাপের অ্যানিমেটেড প্রোগ্রেস বার এবং লাইভ স্টেজ মেসেজ | `screenshots/1_loading_state.png` |
+| **2. Success State (সফল অবস্থা)** | সম্পূর্ণ SEO স্কোর, হেডিং হায়ারার্কি, লিংক গ্রাফ ও পারফরম্যান্স ড্যাশবোর্ড | `screenshots/2_success_state.png` |
+| **3. Error State (ভুল URL-এর অবস্থা)** | ভুল বা অকার্যকর URL-এর স্পষ্ট লাল সতর্কবার্তা, কারণ তালিকা ও সমাধান নির্দেশিকা | `screenshots/3_error_state.png` |
 
 ---
 
@@ -23,7 +37,7 @@
 
 ### 1. URL Input & Validation
 - **Smart URL Input Field**: Clear leading icon, active focus rings, instant clear (`×`) button.
-- **Default Target**: Pre-filled with `https://prostutibd.com/` as the default test target.
+- **Clean Initial State**: Starts with an empty input field and clean slate (no pre-loaded clutter or browser autocomplete popups). Quick test chips allow 1-click loading of benchmark targets (e.g. `prostutibd.com`).
 - **Preset Quick-Chips**: One-click chips to load `prostutibd.com` or alternative test targets.
 - **Client-Side Validation**: Robust URL structure validation preventing invalid submissions, with contextual alert banners and suggestions.
 

@@ -6,18 +6,32 @@ URL Analyzer (Website SEO & Intelligence Suite)
 1. Live Website URL (Firebase Hosting):
    https://url-analyzer-live.web.app
 
-2. GitHub Repository URL:
+2. Direct Links for 3 States Evaluation:
+   - Loading State (লোডিং অবস্থা): 
+     https://url-analyzer-live.web.app/?state=loading
+   - Success State (সফল অবস্থা): 
+     https://url-analyzer-live.web.app/?state=success
+   - Error State (ভুল URL-এর অবস্থা): 
+     https://url-analyzer-live.web.app/?state=error
+
+3. GitHub Repository URL:
    https://github.com/Jinchuriki-7/Url-Analyzer
 
-3. Technology Stack:
+4. Screenshots of the 3 States:
+   - screenshots/1_loading_state.png (5-Stage Loading Progress & Message)
+   - screenshots/2_success_state.png (Full SEO & Technical Diagnostics Dashboard)
+   - screenshots/3_error_state.png (Invalid/Malformed URL Banner & Troubleshooting Guide)
+
+5. Technology Stack:
    - React.js 19
    - Vite 8
    - Tailwind CSS
    - Lucide React
    - JavaScript (ES6+)
 
-4. Features Implemented:
-   - Clean URL Input with full format validation
+6. Features Implemented:
+   - 3 Distinct Evaluated States: Loading, Success, Error
+   - Clean empty input on initial page load (autocomplete popups removed)
    - Interactive 5-stage animated diagnostics progress meter
    - Comprehensive SEO Score with SVG circular radial gauge
    - Semantic Heading Hierarchy (H1, H2, H3) inspector with level filters
@@ -28,5 +42,6 @@ URL Analyzer (Website SEO & Intelligence Suite)
    - Multi-format Report Export (JSON, Print PDF, Markdown)
    - Mobile and desktop responsive layouts
 
-5. Author Email:
-   fahan7th.hq@gmail.com
+7. Author Contact:
+   Farhanul Haque
+   Email: fahan7th.hq@gmail.com
