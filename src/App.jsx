@@ -135,6 +135,10 @@ export default function App() {
   };
 
   const handleTriggerState = (stateName) => {
+    try {
+      window.history.pushState({}, '', `?state=${stateName}`);
+    } catch {}
+
     if (stateName === 'loading') {
       setAnalysisError(null);
       setValidationError('');
@@ -162,6 +166,14 @@ export default function App() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const stateParam = params.get('state');
+    if (stateParam) {
+      handleTriggerState(stateParam);
+    }
+  }, []);
 
   const handleClearToEmpty = () => {
     setUrl('');
