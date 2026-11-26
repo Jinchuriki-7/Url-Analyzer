@@ -6,42 +6,38 @@ URL Analyzer (Website SEO & Intelligence Suite)
 1. Live Website URL (Firebase Hosting):
    https://url-analyzer-live.web.app
 
-2. Direct Links for 3 States Evaluation:
-   - Loading State (লোডিং অবস্থা): 
-     https://url-analyzer-live.web.app/?state=loading
-   - Success State (সফল অবস্থা): 
-     https://url-analyzer-live.web.app/?state=success
-   - Error State (ভুল URL-এর অবস্থা): 
-     https://url-analyzer-live.web.app/?state=error
-
-3. GitHub Repository URL:
+2. GitHub Repository URL:
    https://github.com/Jinchuriki-7/Url-Analyzer
 
-4. Screenshots of the 3 States:
-   - screenshots/1_loading_state.png (5-Stage Loading Progress & Message)
-   - screenshots/2_success_state.png (Full SEO & Technical Diagnostics Dashboard)
-   - screenshots/3_error_state.png (Invalid/Malformed URL Banner & Troubleshooting Guide)
+3. Screenshots (জমা দেওয়ার ৫টি স্ক্রিনশট):
+   - screenshots/1_loading_state.png (Loading State: Spinner & "Analyzing Website...")
+   - screenshots/2_success_state.png (Success State: "Analysis Successful" Banner & Full Dashboard)
+   - screenshots/3_error_state.png (Error State: "Invalid URL. Please enter a valid website URL.")
+   - screenshots/schedule_table_desktop.png (Results Table Desktop: বিষয়, অবস্থা ও সময়সীমা)
+   - screenshots/schedule_table_mobile.png (Results Table Mobile: রেসপন্সিভ মোবাইল কার্ড ভিউ)
 
-5. Technology Stack:
+4. Technology Stack:
    - React.js 19
    - Vite 8
    - Tailwind CSS
    - Lucide React
    - JavaScript (ES6+)
 
-6. Features Implemented:
-   - 3 Distinct Evaluated States: Loading, Success, Error
-   - Clean empty input on initial page load (autocomplete popups removed)
-   - Interactive 5-stage animated diagnostics progress meter
-   - Comprehensive SEO Score with SVG circular radial gauge
-   - Semantic Heading Hierarchy (H1, H2, H3) inspector with level filters
-   - Total Images audit with Alt-text compliance breakdown
-   - Internal vs External link graph analysis with search
-   - HTTP 200 status, SSL security, and TTFB server metrics
-   - Core Web Vitals telemetry (FCP, LCP, CLS, INP, TTFB)
-   - Multi-format Report Export (JSON, Print PDF, Markdown)
-   - Mobile and desktop responsive layouts
+5. Task 1 Core Deliverables Implemented:
+   [x] 3 Distinct States: Loading, Success, Error
+   [x] Loading State with spinner, "Analyzing Website..." and disabled button
+   [x] Success State with "Analysis Successful" banner, SEO score and demo benchmarks
+   [x] Error State with clear error message ("Invalid URL. Please enter a valid website URL.")
+   [x] Clean empty initial state on page load (no pre-loaded spam or browser autocomplete)
+   [x] Results & Schedule Table with 3 required columns:
+       - বিষয় (Subject)
+       - অবস্থা (Status)
+       - সময়সীমা (Deadline)
+   [x] Verified Mobile Responsiveness on small phone screens (stacked card layout)
+   [x] Dynamic table adaptation for any analyzed website (e.g. prostutibd.com, github.com)
+   [x] Semantic Heading Tree (H1-H3), Image Alt Audit, Link Graph, and Core Web Vitals
+   [x] Multi-format Report Export (JSON, Print PDF, Markdown)
 
-7. Author Contact:
+6. Author Contact:
    Farhanul Haque
    Email: farhan9t1l@gmail.com

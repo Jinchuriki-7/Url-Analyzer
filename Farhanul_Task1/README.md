@@ -13,13 +13,15 @@
 
 ---
 
-## 📸 State Screenshots (জমা দেওয়ার স্ক্রিনশট)
+## 📸 State & Table Screenshots (জমা দেওয়ার স্ক্রিনশট)
 
 | State / অবস্থা | Description / বিবরণ | Screenshot Path |
 | :--- | :--- | :--- |
 | **1. Loading State (লোডিং অবস্থা)** | 5-ধাপের অ্যানিমেটেড প্রোগ্রেস বার এবং লাইভ স্টেজ মেসেজ | `screenshots/1_loading_state.png` |
 | **2. Success State (সফল অবস্থা)** | সম্পূর্ণ SEO স্কোর, হেডিং হায়ারার্কি, লিংক গ্রাফ ও পারফরম্যান্স ড্যাশবোর্ড | `screenshots/2_success_state.png` |
 | **3. Error State (ভুল URL-এর অবস্থা)** | ভুল বা অকার্যকর URL-এর স্পষ্ট লাল সতর্কবার্তা, কারণ তালিকা ও সমাধান নির্দেশিকা | `screenshots/3_error_state.png` |
+| **4. Results Table (ডেস্কটপ ভিউ)** | বিষয় (Subject), অবস্থা (Status), সময়সীমা (Deadline) সমন্বিত ফলাফলের টেবিল | `screenshots/schedule_table_desktop.png` |
+| **5. Mobile Responsive Table** | মোবাইল স্ক্রিনে (৩৯০px) অ্যাডাপ্টিভ রেসপন্সিভ কার্ড ও স্ক্রোল লেআউট | `screenshots/schedule_table_mobile.png` |
 
 ---
 
@@ -86,11 +88,19 @@
   - **TTFB (Time to First Byte)**: `318ms`
   - Total network payload breakdown: HTML (`32.4 KB`), JS (`480 KB`), CSS (`112 KB`), Images (`1.38 MB`), Total: `2.04 MB`.
 
-### 4. Demo Data Transparency & Compliance
+### 4. Dynamic Results & Schedule Table (ফলাফলের টেবিল: বিষয়, অবস্থা, সময়সীমা)
+- **বিষয় (Subject)**: প্রতিটি বিষয়ভিত্তিক কোর্স বা অটোমেশন ডায়াগনস্টিক মডিউল নাম ও ক্যাটাগরি।
+- **অবস্থা (Status)**: কালার-কোডেড ও আইকনসহ স্ট্যাটাস ব্যাজ (`চলমান`, `আবেদন চলছে`, `আসন্ন`, `সম্পন্ন`)।
+- **সময়সীমা (Deadline)**: সুনির্দিষ্ট শেষ তারিখ ও অবশিষ্ট দিনের কাউন্টডাউন।
+- **ডায়নামিক অ্যাডাপ্টেশন**: `prostutibd.com` দিলে কোর্স তালিকা এবং অন্য যেকোনো সাইটের ক্ষেত্রে সেই সাইটের অটোমেশন অডিট শিডিউল ডায়নামিকভাবে প্রদর্শিত হয়।
+- **📱 মোবাইল রেসপন্সিভনেস**: ছোট মোবাইল স্ক্রিনে টেবিল কেটে না গিয়ে স্বয়ংক্রিয়ভাবে একটি আধুনিক স্ট্যাকড কার্ড-টেবিলে রূপান্তরিত হয়।
+- **লাইভ ফিল্টারিং ও সার্চ**: বিষয় বা সময়সীমা দিয়ে দ্রুত খোঁজার সার্চ ইনপুট ও স্ট্যাটাস ফিল্টার পিলস।
+
+### 5. Demo Data Transparency & Compliance
 - Prominent **Demo / Sample Benchmark** banner explicitly notifying evaluators that results represent realistic verified sample benchmarks without requiring a live web scraper or paid backend crawler.
 - Smart generator supporting custom domains while retaining the canonical depth of `prostutibd.com`.
 
-### 5. Report Export System
+### 6. Report Export System
 - **JSON Export**: Downloads complete structured diagnostic schema file.
 - **Print / PDF Export**: Formatted printable presentation report.
 - **Markdown Summary**: Copies an executive markdown summary directly to clipboard.
