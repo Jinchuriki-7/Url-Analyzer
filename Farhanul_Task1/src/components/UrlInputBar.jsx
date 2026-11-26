@@ -11,9 +11,9 @@ import {
 } from 'lucide-react';
 
 const PRESETS = [
-  { label: 'prostutibd.com', url: 'https://prostutibd.com/' },
-  { label: 'github.com', url: 'https://github.com' },
-  { label: 'wikipedia.org', url: 'https://wikipedia.org' },
+  { label: 'prostutibd.com', url: 'https://prostutibd.com/', isError: false },
+  { label: 'github.com', url: 'https://github.com', isError: false },
+  { label: 'invalid-domain-test (ভুল URL পরীক্ষা)', url: 'https://invalid-domain-test', isError: true },
 ];
 
 export default function UrlInputBar({ 
@@ -150,9 +150,13 @@ export default function UrlInputBar({
             disabled={isLoading}
             onClick={() => handleSelectPreset(item.url)}
             className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-medium border transition-colors cursor-pointer ${
-              url === item.url
-                ? 'bg-brand-50 text-brand-700 border-brand-300 ring-1 ring-brand-300'
-                : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-800'
+              item.isError
+                ? url === item.url
+                  ? 'bg-rose-100 text-rose-800 border-rose-300 ring-1 ring-rose-300'
+                  : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
+                : url === item.url
+                  ? 'bg-brand-50 text-brand-700 border-brand-300 ring-1 ring-brand-300'
+                  : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-800'
             } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             <span>{item.label}</span>
