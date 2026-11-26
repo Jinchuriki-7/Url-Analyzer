@@ -173,10 +173,11 @@ export default function App() {
   };
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const stateParam = params.get('state');
-    if (stateParam) {
-      handleTriggerState(stateParam);
+    // Keep page completely clean on initial load and clear any leftover query params
+    if (window.location.search) {
+      try {
+        window.history.replaceState({}, '', window.location.pathname);
+      } catch {}
     }
   }, []);
 
@@ -358,7 +359,7 @@ export default function App() {
 
         {/* Empty / Ready State when no analysis or error is active */}
         {!isLoading && !analysisData && !analysisError && (
-          <div className="max-w-xl mx-auto my-10 text-center p-8 bg-white rounded-3xl border border-slate-200/90 shadow-xs space-y-4 animate-fade-in">
+          <div className="max-w-xl mx-auto my-10 text-center p-8 bg-white rounded-3xl border border-slate-200/90 shadow-xs space-y-3 animate-fade-in">
             <div className="w-16 h-16 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto border border-brand-200">
               <Globe2 className="w-8 h-8" />
             </div>
@@ -366,29 +367,8 @@ export default function App() {
               Ready to Analyze Website
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed max-w-md mx-auto">
-              Enter any website URL in the search field above and click <strong>Analyze Website</strong> to generate a complete SEO audit, heading hierarchy, link structure, and performance metrics.
+              Please enter any website URL in the input box above and click <strong className="text-slate-800">Analyze Website</strong> to begin automated SEO, heading tree, link structure, and technical diagnostics.
             </p>
-            <div className="pt-2 flex flex-wrap justify-center items-center gap-2">
-              <button
-                onClick={() => {
-                  setUrl('https://prostutibd.com/');
-                  handleStartAnalysis('https://prostutibd.com/');
-                }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-brand-50 text-slate-700 hover:text-brand-700 border border-slate-200 hover:border-brand-300 text-xs font-semibold transition-all cursor-pointer"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-brand-600" />
-                <span>Test with prostutibd.com</span>
-              </button>
-              <button
-                onClick={() => {
-                  setUrl('https://github.com');
-                  handleStartAnalysis('https://github.com');
-                }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-brand-50 text-slate-700 hover:text-brand-700 border border-slate-200 hover:border-brand-300 text-xs font-semibold transition-all cursor-pointer"
-              >
-                <span>Test with github.com</span>
-              </button>
-            </div>
           </div>
         )}
 
