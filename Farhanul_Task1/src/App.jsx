@@ -3,6 +3,7 @@ import Header from './components/Header';
 import UrlInputBar from './components/UrlInputBar';
 import ProgressBar from './components/ProgressBar';
 import ErrorStateCard from './components/ErrorStateCard';
+import ScheduleResultsTable from './components/ScheduleResultsTable';
 import DemoDisclaimerBanner from './components/DemoDisclaimerBanner';
 import OverviewCards from './components/OverviewCards';
 import WebsiteMetaCard from './components/WebsiteMetaCard';
@@ -31,7 +32,8 @@ import {
   Zap, 
   Award, 
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  Calendar
 } from 'lucide-react';
 
 export default function App() {
@@ -146,13 +148,16 @@ export default function App() {
       setIsLoading(true);
       setProgress(58);
       setCurrentStageIndex(2);
-    } else if (stateName === 'success') {
+    } else if (stateName === 'success' || stateName === 'schedule') {
       setUrl('https://prostutibd.com/');
       setValidationError('');
       setAnalysisError(null);
       setIsLoading(false);
       setProgress(100);
       setAnalysisData(PROSTUTIBD_ANALYSIS_DATA);
+      if (stateName === 'schedule') {
+        setActiveTab('schedule');
+      }
     } else if (stateName === 'error') {
       const errUrl = 'https://invalid-domain-test';
       setUrl(errUrl);
@@ -277,6 +282,7 @@ export default function App() {
               <div className="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none w-full sm:w-auto">
                 {[
                   { id: 'all', label: 'Complete Overview', icon: Layers },
+                  { id: 'schedule', label: 'বিষয় ও সময়সূচি (Table)', icon: Calendar },
                   { id: 'seo', label: 'SEO Audit', icon: Award },
                   { id: 'headings', label: 'Headings (H1-H3)', icon: Heading },
                   { id: 'links', label: 'Hyperlinks', icon: Link2 },
@@ -312,6 +318,16 @@ export default function App() {
               data={analysisData} 
               onNavigateTab={(tab) => setActiveTab(tab)} 
             />
+
+            {/* Subject, Status & Deadline Table (বিষয়, অবস্থা ও সময়সীমা টেবিল) */}
+            {(activeTab === 'all' || activeTab === 'schedule') && (
+              <ScheduleResultsTable />
+            )}
+
+            {/* Subject, Status & Deadline Schedule Table (Task 1 Table Requirement) */}
+            {(activeTab === 'all' || activeTab === 'schedule') && (
+              <ScheduleResultsTable />
+            )}
 
             {/* Tab Specific Content or Full Dashboard */}
             {(activeTab === 'all' || activeTab === 'seo') && (
