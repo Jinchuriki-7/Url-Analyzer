@@ -8,80 +8,158 @@ import {
   BookOpen, 
   Smartphone, 
   Sparkles,
-  Layers
+  Layers,
+  Globe
 } from 'lucide-react';
 
-const INITIAL_SCHEDULE_DATA = [
-  {
-    id: 1,
-    subject: "৪৭তম বিসিএস প্রিলিমিনারি পূর্ণাঙ্গ প্রস্তুতি (47th BCS Preliminary)",
-    category: "BCS Preparation",
-    status: "চলমান",
-    statusKey: "active",
-    deadline: "১৫ ডিসেম্বর ২০২৬",
-    daysRemaining: "১০ দিন বাকি",
-  },
-  {
-    id: 2,
-    subject: "সরকারি প্রাথমিক সহকারী শিক্ষক নিয়োগ পরীক্ষা (Primary Teacher)",
-    category: "Govt. Job",
-    status: "আবেদন চলছে",
-    statusKey: "in_progress",
-    deadline: "১০ জানুয়ারি ২০২৭",
-    daysRemaining: "২৫ দিন বাকি",
-  },
-  {
-    id: 3,
-    subject: "সমন্বিত ১০ ব্যাংক ও আর্থিক প্রতিষ্ঠান সিনিয়র অফিসার (Bank Officer)",
-    category: "Bank Recruitment",
-    status: "আসন্ন",
-    statusKey: "upcoming",
-    deadline: "২৮ ফেব্রুয়ারি ২০২৭",
-    daysRemaining: "আসন্ন ব্যাচ",
-  },
-  {
-    id: 4,
-    subject: "ঢাকা বিশ্ববিদ্যালয় ও গুচ্ছ বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি (University Admission)",
-    category: "Higher Education",
-    status: "চলমান",
-    statusKey: "active",
-    deadline: "২০ ডিসেম্বর ২০২৬",
-    daysRemaining: "১৫ দিন বাকি",
-  },
-  {
-    id: 5,
-    subject: "নন-ক্যাডার ১০ম ও ১২তম গ্রেড জব সল্যুশন ও স্পেশাল মডেল টেস্ট",
-    category: "Non-Cadre Exam",
-    status: "আবেদন চলছে",
-    statusKey: "in_progress",
-    deadline: "০৫ ফেব্রুয়ারি ২০২৭",
-    daysRemaining: "নিবন্ধন চলছে",
-  },
-  {
-    id: 6,
-    subject: "৪৬তম বিসিএস বিষয়ভিত্তিক রিটেন ও ভাইভা স্পেশাল কোর্স",
-    category: "BCS Cadre",
-    status: "সম্পন্ন",
-    statusKey: "completed",
-    deadline: "৩০ নভেম্বর ২০২৬",
-    daysRemaining: "মেয়াদ সম্পন্ন",
-  }
-];
+const getScheduleDataForDomain = (domainStr) => {
+  const isProstuti = domainStr && domainStr.toLowerCase().includes('prostutibd');
 
-export default function ScheduleResultsTable() {
+  if (isProstuti) {
+    return {
+      title: "বিষয়ভিত্তিক পরীক্ষার অবস্থা ও সময়সীমা",
+      subtitle: `প্রস্তুতি বিডি (${domainStr}) প্ল্যাটফর্মের বিষয়ভিত্তিক কোর্স, বর্তমান অবস্থা ও আবেদনের সময়সীমা বিবরণী।`,
+      badge: "পরীক্ষা ও কোর্স সময়সূচি",
+      items: [
+        {
+          id: 1,
+          subject: "৪৭তম বিসিএস প্রিলিমিনারি পূর্ণাঙ্গ প্রস্তুতি (47th BCS Preliminary)",
+          category: "BCS Preparation",
+          status: "চলমান",
+          statusKey: "active",
+          deadline: "১৫ ডিসেম্বর ২০২৬",
+          daysRemaining: "১০ দিন বাকি",
+        },
+        {
+          id: 2,
+          subject: "সরকারি প্রাথমিক সহকারী শিক্ষক নিয়োগ পরীক্ষা (Primary Teacher)",
+          category: "Govt. Job",
+          status: "আবেদন চলছে",
+          statusKey: "in_progress",
+          deadline: "১০ জানুয়ারি ২০২৭",
+          daysRemaining: "২৫ দিন বাকি",
+        },
+        {
+          id: 3,
+          subject: "সমন্বিত ১০ ব্যাংক ও আর্থিক প্রতিষ্ঠান সিনিয়র অফিসার (Bank Officer)",
+          category: "Bank Recruitment",
+          status: "আসন্ন",
+          statusKey: "upcoming",
+          deadline: "২৮ ফেব্রুয়ারি ২০২৭",
+          daysRemaining: "আসন্ন ব্যাচ",
+        },
+        {
+          id: 4,
+          subject: "ঢাকা বিশ্ববিদ্যালয় ও গুচ্ছ বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি (University Admission)",
+          category: "Higher Education",
+          status: "চলমান",
+          statusKey: "active",
+          deadline: "২০ ডিসেম্বর ২০২৬",
+          daysRemaining: "১৫ দিন বাকি",
+        },
+        {
+          id: 5,
+          subject: "নন-ক্যাডার ১০ম ও ১২তম গ্রেড জব সল্যুশন ও স্পেশাল মডেল টেস্ট",
+          category: "Non-Cadre Exam",
+          status: "আবেদন চলছে",
+          statusKey: "in_progress",
+          deadline: "০৫ ফেব্রুয়ারি ২০২৭",
+          daysRemaining: "নিবন্ধন চলছে",
+        },
+        {
+          id: 6,
+          subject: "৪৬তম বিসিএস বিষয়ভিত্তিক রিটেন ও ভাইভা স্পেশাল কোর্স",
+          category: "BCS Cadre",
+          status: "সম্পন্ন",
+          statusKey: "completed",
+          deadline: "৩০ নভেম্বর ২০২৬",
+          daysRemaining: "মেয়াদ সম্পন্ন",
+        }
+      ]
+    };
+  }
+
+  // Dynamic automation diagnostic schedule for any custom website!
+  const cleanDomain = domainStr || 'example.com';
+  return {
+    title: `${cleanDomain} - বিষয়ভিত্তিক অডিট ও টেস্ট সময়সূচি`,
+    subtitle: `${cleanDomain} ওয়েবসাইটের বিভিন্ন বিষয়ভিত্তিক অটোমেশন অডিট মডিউল, বর্তমান অবস্থা ও টেস্ট সময়সীমা বিবরণী।`,
+    badge: "ওয়েবসাইট অটোমেশন অডিট",
+    items: [
+      {
+        id: 1,
+        subject: `Core Web Vitals ও স্পিড পারফরম্যান্স অডিট (${cleanDomain})`,
+        category: "Performance",
+        status: "চলমান",
+        statusKey: "active",
+        deadline: "রিয়েল-টাইম ট্র্যাকিং",
+        daysRemaining: "সক্রিয় পর্যবেক্ষণ",
+      },
+      {
+        id: 2,
+        subject: `SSL সার্টিফিকেট ও TLS 1.3 সিকিউরিটি হ্যান্ডশেক ভেরিফিকেশন`,
+        category: "Security",
+        status: "সম্পন্ন",
+        statusKey: "completed",
+        deadline: "২০২৭ পর্যন্ত বৈধ",
+        daysRemaining: "সার্টিফিকেট ওকে",
+      },
+      {
+        id: 3,
+        subject: `H1-H3 সিম্যান্টিক হেডিং স্ট্রাকচার ও DOM হায়ারার্কি টেস্ট`,
+        category: "Semantic SEO",
+        status: "সম্পন্ন",
+        statusKey: "completed",
+        deadline: "সম্পন্ন",
+        daysRemaining: "পাস",
+      },
+      {
+        id: 4,
+        subject: `ইন্টারনাল ও এক্সটারনাল হাইপারলিংক ক্রলিং অডিট (${cleanDomain})`,
+        category: "Link Topology",
+        status: "আবেদন চলছে",
+        statusKey: "in_progress",
+        deadline: "পরবর্তী ক্রল: ৭ দিন পর",
+        daysRemaining: "ক্রলিং শিডিউলড",
+      },
+      {
+        id: 5,
+        subject: `ইমেজ কমপ্রেশন ও Alt-ট্যাগ অ্যাক্সেসিবিলিটি কমপ্লায়েন্স`,
+        category: "Media Audit",
+        status: "চলমান",
+        statusKey: "active",
+        deadline: "১৫ ডিসেম্বর ২০২৬",
+        daysRemaining: "চলমান",
+      },
+      {
+        id: 6,
+        subject: `মোবাইল ভিউপোর্ট ও ক্রস-ডিভাইস রেসপনসিভনেস ভ্যালিডেশন`,
+        category: "Mobile UX",
+        status: "সম্পন্ন",
+        statusKey: "completed",
+        deadline: "ভ্যালিডেটেড",
+        daysRemaining: "পাস",
+      }
+    ]
+  };
+};
+
+export default function ScheduleResultsTable({ domain = 'prostutibd.com', url = 'https://prostutibd.com/' }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
 
+  const scheduleMeta = useMemo(() => getScheduleDataForDomain(domain), [domain]);
+
   // Filtered dataset
   const filteredData = useMemo(() => {
-    return INITIAL_SCHEDULE_DATA.filter((item) => {
+    return scheduleMeta.items.filter((item) => {
       const matchesSearch = item.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
                             item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
                             item.deadline.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = selectedStatus === 'all' || item.statusKey === selectedStatus;
       return matchesSearch && matchesStatus;
     });
-  }, [searchTerm, selectedStatus]);
+  }, [scheduleMeta, searchTerm, selectedStatus]);
 
   // Helper for Status Badge Styling
   const getStatusBadge = (statusKey, statusText) => {
@@ -131,13 +209,13 @@ export default function ScheduleResultsTable() {
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-brand-50 text-brand-700 border border-brand-200/80 text-xs font-extrabold uppercase tracking-wider">
               <Calendar className="w-3.5 h-3.5" />
-              <span>ফলাফলের টেবিল ও সময়সূচি</span>
+              <span>{scheduleMeta.badge}</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-              <span>বিষয়ভিত্তিক পরীক্ষার অবস্থা ও সময়সীমা</span>
+              <span>{scheduleMeta.title}</span>
             </h3>
             <p className="text-xs sm:text-sm text-slate-500">
-              প্রস্তুতি বিডি (prostutibd.com) প্ল্যাটফর্মের বিষয়ভিত্তিক কোর্স, বর্তমান অবস্থা ও আবেদনের সময়সীমা বিবরণী।
+              {scheduleMeta.subtitle}
             </p>
           </div>
 
@@ -275,7 +353,7 @@ export default function ScheduleResultsTable() {
             ) : (
               <tr>
                 <td colSpan={3} className="py-10 text-center text-slate-400 text-xs font-medium">
-                  কোনো বিষয় পাওয়া যায়নি।
+                  কোনো বিষয় পাওয়া যায়নি। ফিল্টার পরিবর্তন করে আবার চেষ্টা করুন।
                 </td>
               </tr>
             )}
@@ -346,7 +424,7 @@ export default function ScheduleResultsTable() {
       <div className="px-5 py-3.5 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 font-medium">
         <div className="flex items-center gap-2">
           <Sparkles className="w-3.5 h-3.5 text-brand-600" />
-          <span>প্রস্তুতি বিডি লাইভ এক্সাম শিডিউল ও রেজাল্ট ফরম্যাট</span>
+          <span>{domain} স্বয়ংক্রিয় ডায়াগনস্টিক শিডিউল ও রেজাল্ট ফরম্যাট</span>
         </div>
         <div className="text-[11px] text-slate-400">
           সর্বশেষ আপডেট: <span className="font-semibold text-slate-600">নভেম্বর ২০২৬</span>

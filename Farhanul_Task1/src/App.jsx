@@ -321,12 +321,10 @@ export default function App() {
 
             {/* Subject, Status & Deadline Table (বিষয়, অবস্থা ও সময়সীমা টেবিল) */}
             {(activeTab === 'all' || activeTab === 'schedule') && (
-              <ScheduleResultsTable />
-            )}
-
-            {/* Subject, Status & Deadline Schedule Table (Task 1 Table Requirement) */}
-            {(activeTab === 'all' || activeTab === 'schedule') && (
-              <ScheduleResultsTable />
+              <ScheduleResultsTable 
+                domain={analysisData.domain} 
+                url={analysisData.url} 
+              />
             )}
 
             {/* Tab Specific Content or Full Dashboard */}
