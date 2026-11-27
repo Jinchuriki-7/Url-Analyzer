@@ -13,7 +13,7 @@
 
 ---
 
-## 📸 Screenshots (জমা দেওয়ার পোর্টফোলিও স্ক্রিনশট)
+## 📸 Screenshots
 
 | Feature / ফিচার | Description / বিবরণ | Screenshot Path |
 | :--- | :--- | :--- |
