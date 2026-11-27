@@ -37,16 +37,56 @@ import {
 } from 'lucide-react';
 
 export default function App() {
-  const [url, setUrl] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [currentStageIndex, setCurrentStageIndex] = useState(0);
-  const [validationError, setValidationError] = useState('');
-  const [analysisError, setAnalysisError] = useState(null);
+  const getInitialParam = (param) => {
+    try {
+      if (typeof window !== 'undefined') {
+        return new URLSearchParams(window.location.search).get(param);
+      }
+    } catch {}
+    return null;
+  };
+
+  const initialParam = getInitialParam('state');
+
+  const [url, setUrl] = useState(() => {
+    if (initialParam === 'success' || initialParam === 'schedule' || initialParam === 'report') {
+      return 'https://prostutibd.com/';
+    }
+    if (initialParam === 'error') {
+      return 'https://invalid-domain-test';
+    }
+    return '';
+  });
+
+  const [isLoading, setIsLoading] = useState(() => initialParam === 'loading');
+  const [progress, setProgress] = useState(() => (initialParam === 'loading' ? 58 : (initialParam ? 100 : 0)));
+  const [currentStageIndex, setCurrentStageIndex] = useState(() => (initialParam === 'loading' ? 2 : 0));
+  const [validationError, setValidationError] = useState(() => (initialParam === 'error' ? 'Invalid URL. Please enter a valid website URL.' : ''));
+  const [analysisError, setAnalysisError] = useState(() => {
+    if (initialParam === 'error') {
+      return {
+        url: 'https://invalid-domain-test',
+        message: "Invalid URL. Please enter a valid website URL. Host could not be reached (DNS Resolution Failed)."
+      };
+    }
+    return null;
+  });
   
-  // Start with clean initial state
-  const [analysisData, setAnalysisData] = useState(null);
-  const [activeTab, setActiveTab] = useState('all'); // 'all' | 'seo' | 'headings' | 'links' | 'media' | 'performance'
+  // Start with benchmark data if state param is passed
+  const [analysisData, setAnalysisData] = useState(() => {
+    if (initialParam === 'success' || initialParam === 'schedule' || initialParam === 'report') {
+      return PROSTUTIBD_ANALYSIS_DATA;
+    }
+    return null;
+  });
+
+  const [activeTab, setActiveTab] = useState(() => {
+    if (initialParam === 'schedule' || initialParam === 'report') {
+      return 'schedule';
+    }
+    return 'all';
+  });
+
   const [isExportOpen, setIsExportOpen] = useState(false);
 
   // References for scrolling to tabs

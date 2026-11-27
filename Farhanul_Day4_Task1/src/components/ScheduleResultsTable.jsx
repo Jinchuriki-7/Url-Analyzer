@@ -280,7 +280,7 @@ export default function ScheduleResultsTable({ domain = 'prostutibd.com', url = 
   };
 
   return (
-    <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-200 overflow-hidden animate-fade-in">
+    <div id="automation-schedule-table" className="bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-200 overflow-hidden animate-fade-in">
       {/* Top Header & Context */}
       <div className="p-5 sm:p-7 border-b border-slate-100 bg-gradient-to-r from-slate-50/70 via-white to-brand-50/30">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
