@@ -13,16 +13,13 @@
 
 ---
 
-## 📸 State & Table Screenshots (জমা দেওয়ার স্ক্রিনশট)
+## 📸 Screenshots (জমা দেওয়ার পোর্টফোলিও স্ক্রিনশট)
 
-| State / অবস্থা | Description / বিবরণ | Screenshot Path |
+| Feature / ফিচার | Description / বিবরণ | Screenshot Path |
 | :--- | :--- | :--- |
-| **1. Loading State (লোডিং অবস্থা)** | ৫-ধাপের অ্যানিমেটেড প্রোগ্রেস বার, স্পিনার এবং "Analyzing Website..." মেসেজ | `screenshots/1_loading_state.png` |
-| **2. Success State (সফল অবস্থা)** | সম্পূর্ণ SEO স্কোর (৮৯/১০০), হেডিং হায়ারার্কি, লিংক গ্রাফ ও পারফরম্যান্স ড্যাশবোর্ড | `screenshots/2_success_state.png` |
-| **3. Error State (ভুল URL-এর অবস্থা)** | ভুল বা অকার্যকর URL-এর স্পষ্ট লাল সতর্কবার্তা, কারণ তালিকা ও সমাধান নির্দেশিকা | `screenshots/3_error_state.png` |
-| **4. Status Filter Table View** | অবস্থা (Status) অনুযায়ী ফিল্টার করার অপশন এবং প্রতিটি ট্যাবে লাইভ কাউন্ট ব্যাজ | `screenshots/4_status_filter_table.png` |
-| **5. Clean Report View (রিপোর্ট ভিউ)** | এক্সিকিউটিভ সারসংক্ষেপ, স্ট্যাটাস বণ্টন মিটার, কার্ড ভিউ ও রিপোর্ট কপি বাটন | `screenshots/5_clean_report_view.png` |
-| **6. Mobile Responsive View** | মোবাইল স্ক্রিনে (৩৯০px) স্বয়ংক্রিয় স্ট্যাকড কার্ড লেআউট ও হরিজন্টাল স্ক্রোল | `screenshots/6_mobile_responsive_view.png` |
+| **1. Status Filter Table View** | অবস্থা (Status) অনুযায়ী ফিল্টার করার অপশন এবং প্রতিটি ট্যাবে লাইভ কাউন্ট ব্যাজ | `screenshots/4_status_filter_table.png` |
+| **2. Clean Report View (রিপোর্ট ভিউ)** | এক্সিকিউটিভ সারসংক্ষেপ, স্ট্যাটাস বণ্টন মিটার, কার্ড ভিউ ও রিপোর্ট কপি বাটন | `screenshots/5_clean_report_view.png` |
+| **3. Mobile Responsive View** | মোবাইল স্ক্রিনে স্বয়ংক্রিয় স্ট্যাকড কার্ড লেআউট ও টাচ-ফ্রেন্ডলি ভিউ | `screenshots/6_mobile_responsive_view.png` |
 
 ---
 
