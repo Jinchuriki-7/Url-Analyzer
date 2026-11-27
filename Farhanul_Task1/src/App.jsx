@@ -148,14 +148,14 @@ export default function App() {
       setIsLoading(true);
       setProgress(58);
       setCurrentStageIndex(2);
-    } else if (stateName === 'success' || stateName === 'schedule') {
+    } else if (stateName === 'success' || stateName === 'schedule' || stateName === 'report') {
       setUrl('https://prostutibd.com/');
       setValidationError('');
       setAnalysisError(null);
       setIsLoading(false);
       setProgress(100);
       setAnalysisData(PROSTUTIBD_ANALYSIS_DATA);
-      if (stateName === 'schedule') {
+      if (stateName === 'schedule' || stateName === 'report') {
         setActiveTab('schedule');
       }
     } else if (stateName === 'error') {
@@ -173,11 +173,10 @@ export default function App() {
   };
 
   useEffect(() => {
-    // Keep page completely clean on initial load and clear any leftover query params
-    if (window.location.search) {
-      try {
-        window.history.replaceState({}, '', window.location.pathname);
-      } catch {}
+    const params = new URLSearchParams(window.location.search);
+    const stateParam = params.get('state');
+    if (stateParam) {
+      handleTriggerState(stateParam);
     }
   }, []);
 
