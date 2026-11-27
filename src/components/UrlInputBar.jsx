@@ -123,7 +123,6 @@ export default function UrlInputBar({
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4 text-sky-200" />
                 <span>Analyze Website</span>
                 <ArrowRight className="w-4 h-4 text-white/80" />
               </>
