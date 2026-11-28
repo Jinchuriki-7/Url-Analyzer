@@ -16,7 +16,13 @@ import {
   Copy,
   Check,
   TrendingUp,
-  BarChart3
+  BarChart3,
+  Printer,
+  Download,
+  X,
+  FileSpreadsheet,
+  Share2,
+  ExternalLink
 } from 'lucide-react';
 
 const getScheduleDataForDomain = (domainStr) => {
@@ -195,6 +201,14 @@ export default function ScheduleResultsTable({ domain = 'prostutibd.com', url = 
   });
 
   const [copiedReport, setCopiedReport] = useState(false);
+  const [isClientSummaryOpen, setIsClientSummaryOpen] = useState(() => {
+    try {
+      const exp = new URLSearchParams(window.location.search).get('export');
+      if (exp === 'client' || exp === 'summary' || exp === 'true') return true;
+    } catch {}
+    return false;
+  });
+  const [copiedModalText, setCopiedModalText] = useState(false);
 
   const scheduleMeta = useMemo(() => getScheduleDataForDomain(domain), [domain]);
 
@@ -220,23 +234,84 @@ export default function ScheduleResultsTable({ domain = 'prostutibd.com', url = 
     });
   }, [scheduleMeta, searchTerm, selectedStatus]);
 
+  // Generate structured client-ready audit summary
+  const generateClientSummaryText = () => {
+    const formattedDate = new Date().toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' });
+    const statusLabelMap = {
+      all: 'সবগুলো অবস্থা (সকল রেকর্ড)',
+      active: 'চলমান ব্যাচ ও কোর্স',
+      in_progress: 'আবেদন চলমান',
+      upcoming: 'আসন্ন ব্যাচ',
+      completed: 'সম্পন্ন সেশন'
+    };
+
+    const lines = [
+      `======================================================================`,
+      `📊 ওয়েবসাইট অডিট ও স্ট্যাটাস রিপোর্ট — ${domain}`,
+      `======================================================================`,
+      `📌 প্ল্যাটফর্ম / ক্লায়েন্ট ডোমেইন: ${domain}`,
+      `📅 অডিট জেনারেশনের তারিখ: ${formattedDate}`,
+      `🎯 নির্বাচিত ফিল্টার ভিউ: ${statusLabelMap[selectedStatus] || selectedStatus} (${filteredData.length}টি মডিউল অন্তর্ভুক্ত)`,
+      ``,
+      `📈 বর্তমান অবস্থা সারসংক্ষেপ (STATUS DISTRIBUTION):`,
+      `  • মোট কোর্স / অডিট মডিউল: ${statusCounts.all}টি`,
+      `  • বর্তমানে চলমান: ${statusCounts.active}টি`,
+      `  • নতুন আবেদন চলছে: ${statusCounts.in_progress}টি`,
+      `  • আসন্ন সেশন: ${statusCounts.upcoming}টি`,
+      `  • সফলভাবে সম্পন্ন: ${statusCounts.completed}টি`,
+      ``,
+      `🔍 বিস্তারিত বিষয় ও আবেদনের সময়সীমা (MODULE SCHEDULE & DEADLINES):`,
+      ...filteredData.map((item, idx) => [
+        `  [${idx + 1}] ${item.subject}`,
+        `      - ক্যাটাগরি: ${item.category} | প্রায়োরিটি: ${item.priority}`,
+        `      - অবস্থা: [${item.status}]`,
+        `      - ডেডলাইন / সময়সীমা: ${item.deadline} (${item.daysRemaining})`,
+        item.summary ? `      - বিবরণ: ${item.summary}` : ''
+      ].filter(Boolean).join('\n')),
+      ``,
+      `======================================================================`,
+      `💼 ক্লায়েন্ট রেকমেন্ডেশন ও অ্যাকশন আইটেম:`,
+      `  1. "চলমান" ও "আবেদন চলছে" বিষয়ের শেষ সময়সীমার পূর্বে আবেদন ও প্রস্তুতি যাচাই সম্পন্ন করুন।`,
+      `  2. আসন্ন ব্যাচের রেজিস্ট্রেশন শুরুর সাথে সাথে ক্লায়েন্টদের নোটিফিকেশন নিশ্চিত করুন।`,
+      `======================================================================`,
+      `রিপোর্ট প্রস্তুতকারক: URL Analyzer (1-Click Automation Client Reporting Engine)`
+    ];
+    return lines.join('\n');
+  };
+
   // Copy Executive Report Summary
   const handleCopyReport = () => {
-    const summaryLines = [
-      `=========================================`,
-      `অটোমেশন ফলাফল ও স্ট্যাটাস রিপোর্ট: ${domain}`,
-      `ফিল্টার: ${selectedStatus.toUpperCase()} | মোট বিষয়: ${filteredData.length}`,
-      `=========================================`,
-      ...filteredData.map((item, idx) => 
-        `${idx + 1}. [${item.status}] ${item.subject}\n   - ক্যাটাগরি: ${item.category}\n   - সময়সীমা: ${item.deadline} (${item.daysRemaining})`
-      ),
-      `=========================================`,
-      `তারিখ: ${new Date().toLocaleDateString('bn-BD')} | স্ট্যাটাস: ভেরিফাইড`
-    ].join('\n');
-
-    navigator.clipboard.writeText(summaryLines);
+    const summaryText = generateClientSummaryText();
+    navigator.clipboard.writeText(summaryText);
     setCopiedReport(true);
     setTimeout(() => setCopiedReport(false), 2000);
+  };
+
+  // Copy Modal Summary
+  const handleCopyModalText = () => {
+    const summaryText = generateClientSummaryText();
+    navigator.clipboard.writeText(summaryText);
+    setCopiedModalText(true);
+    setTimeout(() => setCopiedModalText(false), 2000);
+  };
+
+  // 1-Click Print Handler
+  const handlePrintAuditReport = () => {
+    window.print();
+  };
+
+  // 1-Click Text File Download
+  const handleDownloadSummaryText = () => {
+    const summaryText = generateClientSummaryText();
+    const blob = new Blob([summaryText], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${domain}-client-audit-summary.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   };
 
   // Helper for Status Badge Styling
@@ -297,8 +372,8 @@ export default function ScheduleResultsTable({ domain = 'prostutibd.com', url = 
             </p>
           </div>
 
-          {/* View Mode Toggle & Copy Report Button */}
-          <div className="flex items-center gap-2 self-start md:self-auto flex-wrap">
+          {/* View Mode Toggle & 1-Click Export Action Buttons */}
+          <div className="flex items-center gap-2 self-start md:self-auto flex-wrap no-print">
             {/* View Mode Switcher */}
             <div className="flex items-center bg-slate-100/90 p-1 rounded-xl border border-slate-200/80 text-xs font-bold">
               <button
@@ -327,12 +402,34 @@ export default function ScheduleResultsTable({ domain = 'prostutibd.com', url = 
               </button>
             </div>
 
+            {/* 1-Click Print Audit Report Button */}
+            <button
+              type="button"
+              onClick={handlePrintAuditReport}
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 shadow-2xs transition-all cursor-pointer"
+              title="অডিট রিপোর্ট প্রিন্ট করুন বা PDF হিসেবে সংরক্ষণ করুন"
+            >
+              <Printer className="w-3.5 h-3.5 text-slate-500" />
+              <span>প্রিন্ট অডিট</span>
+            </button>
+
+            {/* 1-Click Client Audit Summary Modal Trigger */}
+            <button
+              type="button"
+              onClick={() => setIsClientSummaryOpen(true)}
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-brand-50 hover:bg-brand-100/80 text-brand-700 border border-brand-200 shadow-2xs transition-all cursor-pointer"
+              title="ক্লায়েন্টকে পাঠানোর উপযোগী অডিট সামারি তৈরি করুন ও দেখুন"
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5 text-brand-600" />
+              <span>ক্লায়েন্ট সামারি</span>
+            </button>
+
             {/* Copy Report Button */}
             <button
               type="button"
               onClick={handleCopyReport}
               className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 shadow-2xs transition-all cursor-pointer"
-              title="রিপোর্টের সামারি কপি করুন"
+              title="ক্লায়েন্ট অডিট সামারি ক্লিপবোর্ডে কপি করুন"
             >
               {copiedReport ? (
                 <>
@@ -342,7 +439,7 @@ export default function ScheduleResultsTable({ domain = 'prostutibd.com', url = 
               ) : (
                 <>
                   <Copy className="w-3.5 h-3.5 text-slate-500" />
-                  <span>রিপোর্ট কপি</span>
+                  <span>সামারি কপি</span>
                 </>
               )}
             </button>
@@ -634,6 +731,55 @@ export default function ScheduleResultsTable({ domain = 'prostutibd.com', url = 
                 </div>
               </div>
             </div>
+
+            {/* Quick 1-Click Export Actions for Clean Report View */}
+            <div className="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 no-print">
+              <span className="text-xs text-slate-300 flex items-center gap-1.5 font-medium">
+                <Sparkles className="w-3.5 h-3.5 text-sky-400" />
+                <span>ক্লায়েন্টকে পাঠানোর উপযোগী ১-ক্লিক এক্সপোর্ট ও প্রিন্ট টুলস</span>
+              </span>
+
+              <div className="flex items-center gap-2 flex-wrap">
+                <button
+                  type="button"
+                  onClick={handlePrintAuditReport}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-white/15 hover:bg-white/25 text-white border border-white/20 transition-all cursor-pointer"
+                  title="রিপোর্ট সরাসরি প্রিন্ট করুন বা PDF আকারে সংরক্ষণ করুন"
+                >
+                  <Printer className="w-3.5 h-3.5 text-sky-300" />
+                  <span>প্রিন্ট অডিট রিপোর্ট</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsClientSummaryOpen(true)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-400 hover:bg-sky-300 text-slate-900 shadow-sm transition-all cursor-pointer"
+                  title="ক্লায়েন্ট অডিট ব্রিফ ওপেন করুন"
+                >
+                  <FileSpreadsheet className="w-3.5 h-3.5 text-slate-900" />
+                  <span>ক্লায়েন্ট অডিট সামারি</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleCopyReport}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-white/15 hover:bg-white/25 text-white border border-white/20 transition-all cursor-pointer"
+                  title="ক্লিপবোর্ডে কপি করুন"
+                >
+                  {copiedReport ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>কপি হয়েছে!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5 text-sky-300" />
+                      <span>সামারি কপি</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Clean Report Cards Grid */}
@@ -688,6 +834,122 @@ export default function ScheduleResultsTable({ domain = 'prostutibd.com', url = 
           ভিউ মোড: <span className="font-semibold text-slate-700">{viewMode === 'table' ? 'টেবিল ভিউ' : 'পরিচ্ছন্ন রিপোর্ট ভিউ'}</span> • সর্বশেষ আপডেট: <span className="font-semibold text-slate-600">নভেম্বর ২০২৬</span>
         </div>
       </div>
+
+      {/* Interactive Client Audit Summary Modal */}
+      {isClientSummaryOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in no-print">
+          <div className="bg-white rounded-3xl max-w-2xl w-full p-5 sm:p-7 shadow-2xl border border-slate-100 flex flex-col max-h-[90vh] overflow-hidden animate-slide-up">
+            {/* Modal Header */}
+            <div className="flex items-start justify-between pb-4 border-b border-slate-100">
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-brand-50 text-brand-700 text-[11px] font-extrabold uppercase tracking-wider">
+                  <FileSpreadsheet className="w-3.5 h-3.5" />
+                  <span>ক্লায়েন্ট-রেডি অডিট সামারি</span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-extrabold text-slate-900">
+                  {domain} - অডিট এক্সপোর্ট ব্রিফ
+                </h3>
+                <p className="text-xs text-slate-500">
+                  নির্বাচিত ফিল্টার: <span className="font-semibold text-slate-700">{selectedStatus.toUpperCase()}</span> ({filteredData.length}টি মডিউল অন্তর্ভুক্ত)
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsClientSummaryOpen(false)}
+                className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                title="বন্ধ করুন"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Quick Metrics Badge Bar */}
+            <div className="grid grid-cols-4 gap-2 my-4">
+              <div className="bg-slate-50 rounded-xl p-2.5 border border-slate-200/70 text-center">
+                <span className="block text-base sm:text-lg font-extrabold text-slate-800">{statusCounts.all}</span>
+                <span className="text-[10px] font-semibold text-slate-500 uppercase">মোট বিষয়</span>
+              </div>
+              <div className="bg-emerald-50/70 rounded-xl p-2.5 border border-emerald-200/70 text-center">
+                <span className="block text-base sm:text-lg font-extrabold text-emerald-700">{statusCounts.active}</span>
+                <span className="text-[10px] font-semibold text-emerald-600 uppercase">চলমান</span>
+              </div>
+              <div className="bg-sky-50/70 rounded-xl p-2.5 border border-sky-200/70 text-center">
+                <span className="block text-base sm:text-lg font-extrabold text-sky-700">{statusCounts.in_progress}</span>
+                <span className="text-[10px] font-semibold text-sky-600 uppercase">আবেদন</span>
+              </div>
+              <div className="bg-amber-50/70 rounded-xl p-2.5 border border-amber-200/70 text-center">
+                <span className="block text-base sm:text-lg font-extrabold text-amber-700">{statusCounts.upcoming}</span>
+                <span className="text-[10px] font-semibold text-amber-600 uppercase">আসন্ন</span>
+              </div>
+            </div>
+
+            {/* Preformatted Summary Text Box */}
+            <div className="flex-1 overflow-y-auto rounded-2xl bg-slate-900 text-slate-100 p-4 font-mono text-xs leading-relaxed space-y-1 select-all border border-slate-800 scrollbar-thin">
+              <pre className="whitespace-pre-wrap font-sans text-xs">
+                {generateClientSummaryText()}
+              </pre>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2.5">
+              <div className="flex items-center gap-2">
+                {/* Copy Button */}
+                <button
+                  type="button"
+                  onClick={handleCopyModalText}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition-all cursor-pointer"
+                >
+                  {copiedModalText ? (
+                    <>
+                      <Check className="w-4 h-4 text-emerald-200" />
+                      <span>কপি সম্পন্ন!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4 text-white" />
+                      <span>ক্লিপবোর্ডে কপি করুন</span>
+                    </>
+                  )}
+                </button>
+
+                {/* Download Text File */}
+                <button
+                  type="button"
+                  onClick={handleDownloadSummaryText}
+                  className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-2xs transition-all cursor-pointer"
+                  title="টেক্সট ফাইল (.txt) আকারে ডাউনলোড করুন"
+                >
+                  <Download className="w-4 h-4 text-slate-500" />
+                  <span className="hidden sm:inline">ফাইল ডাউনলোড (.txt)</span>
+                </button>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {/* Print Button */}
+                <button
+                  type="button"
+                  onClick={handlePrintAuditReport}
+                  className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-2xs transition-all cursor-pointer"
+                  title="প্রিন্ট করুন বা PDF হিসেবে সংরক্ষণ করুন"
+                >
+                  <Printer className="w-4 h-4 text-slate-500" />
+                  <span>প্রিন্ট অডিট</span>
+                </button>
+
+                {/* Close Button */}
+                <button
+                  type="button"
+                  onClick={() => setIsClientSummaryOpen(false)}
+                  className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-all cursor-pointer"
+                >
+                  বন্ধ করুন
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
